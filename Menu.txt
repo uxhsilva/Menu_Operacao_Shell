@@ -1,0 +1,347 @@
+Observacoes:
+
+Leia os arquivos:
+
+Menu.odt
+Menu.pdf
+
+1 – Instalando
+
+Logar-se como root e criar um usuario com permissões de root.
+Para isso copiar a linha do root duas vezes no /etc/passwd
+
+Exemplo : 
+
+root:x:0:0:Super-User:/:/sbin/sh 
+
+Após fazer uma copia da linha faça a seguinte alteração : 
+
+root:x:0:0:Super-User:/:/sbin/sh 
+operacao:x:0:0:Usuario da operacao:/home/operacao:/usr/bin/ksh 
+                                   | 
+                                   +--> Este diretório deve ser criado
+
+Logo após crie uma senha para o usuario :
+
+# passwd operação
+
+Observações :  Para sistemas onde há problemas em adicionar diretamente um usuário no /etc/passwd, recomenda-se utilizar o comando : “useradd” e logo após efetuar as alterações.
+
+Após copie o arquivo MENU_Vx_Rx_ddmmyyyy.tar.gz e install_menu.sh para o diretório /tmp e execute a seguinte linha de comando : 
+
+# ./install_menu.sh 
+
+[ TELA ]
+
+O Usuário padrão do Menu é : operação
+
+Caso queira mudar digite : S
+
+Observações : No diretório HOME do usuário em questão serão instalados os scripts do Menu.
+
+[ TELA ]
+
+Acima foi escolhido como exemplo o Login : operador
+
+Observações : Anteriormente foi criado este usuário no /etc/passwd com as permissões de root
+
+Logo após tecle <RETURN> para prosseguir.
+
+[ TELA ]
+
+Logo após digite o Nome da Empresa
+
+Observações :	Este campo permite apenas 27 caracteres
+                      	O Nome da Empresa com 27 caracteres será apresentado logo após passar pelo 
+                      	processo de login.
+		Pede-se para que não se coloque caracteres especiais como :
+		* ? & % \ / ‘ “ ¨ ` !
+Caso necessite, coloque o nome da empresa e no lugar do caracter desejado insira X , após a instalação do Menu edite o arquivo : $HOME/shell/.default_menu.inc.
+Edite as variáveis : LOGO e LOGO_2
+
+[ TELA ]
+
+Logo após digite o Nome Curto da Empresa
+
+Observações :	Este campo permite apenas 13 caracteres
+ 		O Nome Curto da Empresa com 27 caracteres será apresentado logo após passar pelo 
+ 		processo de login do Menu
+
+
+Logo após entre com o domínio da empresa.
+
+
+Logo após tecle <RETURN> para prosseguir.
+
+
+Logo após tecle <RETURN> para prosseguir.
+
+
+Logo após iremos criar uma nova conta para logar-se no menu.
+
+Digite : ADM + 3 dígitos de sua preferência :  Exemplo :  ADM001
+
+Observações : As contas do menu tem o seguinte Lay-Out :
+
+opr999  Operadores
+ADM999  Administrador do Menu
+
+Caso seja digitada qualquer coisa diferente deste padrão, será alertado.
+
+[ TELA ]
+
+Logo após digite o nome completo do Usuário do Menu 
+
+[ TELA ]
+
+Logo após digite a senha deste usuário para entrar no Menu
+
+Observações : 	Esta senha é criptografada e esta cadastrada no diretório : 
+$HOME/shell/operadores.inf
+			O método de criptografia é baseado conforme o ambiente, caso esteja instalado
+			OPENSSL, a senha é criptografada com este método, e caso não esteja instalado
+			a senha é criptografada com CKSUM, e caso este não esteja instalado a 
+instalação do MENU é abortada.
+Esta senha deve ter no mínimo 6 caracteres.
+
+[ TELA ]
+
+Digite a senha pela segunda vez para conferencia e tecle <RETURN> para prosseguir.
+
+Será emitida mensagem de que foi criado o usuário com sucesso.
+
+Logo após tecle <RETURN> para prosseguir.
+
+[ TELA ]
+
+Logo após emite a mensagem acima.
+
+Pede-se para logar com o Login criado no UNIX e logo após com a nova conta criada no MENU.
+
+Caso o nome da empresa necessite alteração edite o arquivo : $HOME/shell/.default_menu.inc.
+Edite as variáveis : LOGO e LOGO_2
+2 – Modificando o Nome da Empresa
+
+Após isto edite o arquivo : $HOME/shell/.default_menu.inc para alterar o nome da empresa no Menu.
+
+...
+
+# Variaveis abaixo podem ser alteradas -->
+# LOGO --> Variavel que determina o nome da Empresa
+#          tamanho de 27 Caracteres
+#
+# LOGO="123456789+123456789+1234567" #   27 caracteres
+# LOGO_2="123456789+123"             #   13 caracteres
+
+    LOGO_2="   Brasil    "
+  # LOGO_2="123456789+123"           #   13 caracteres
+
+    LOGO="     Brasil Comercial      "
+  # LOGO="123456789+123456789+1234567"#  27 caracteres
+
+OPER_NAME="operador"  # Informar o nome do login que executara o Menu
+
+...
+
+Onde a Variável LOGO tem 27 Caracteres, e mantenha os 27 caracteres nesta Variável, pois o espaço em branco tem que haver, caso fique menor que 27 a tela do menu irá ficar sem formatação.
+
+A variável LOGO_2 tem 13 caracteres e também vale a mesma regra.
+Logando-se no menu :
+
+# ssh operador@localhost
+
+[ TELA ]
+
+Entre com a Senha do ADM001
+
+[ TELA ]
+
+OK! O menu esta pronto para ser utilizado !
+3 – Editando o Menu
+
+Para editar um menu ( ou sub-menu ) digite : edit  no Menu Principal ( MENOP001)
+e entre com usuário Administrador do Menu :
+
+Exemplo : ADM001 
+
+A seguir segue um exemplo de edição do Menu.
+
+Exemplo : 
+
+Você logou-se, e o nome do menu corrente esta no canto de baixo da tela á sua esquerda : MENOP001.sh, sendo assim você irá editar o arquivo MENOP001.inc 
+
+Exemplo : Vamos fazer com que a Opção B do Menu : MENOP001.sh chame o script
+/tmp/teste.sh
+
+[ TELA ]
+
+As seguintes variáveis deverão ser alteradas :
+
+OPCAO_A="Backup Diario                                                     "
+
+Esta variável apenas demonstra o Display da Opção A, e respeite os espaços em branco, pois o Display do Menu pode ficar desconfigurado.
+
+[ TELA ]
+
+Exec_OPCAO_A="/tmp/teste.sh"
+
+Esta variável indica qual o Script Shell que deverá ser executado.
+
+[ TELA ]
+
+CONFIRMA_B=S   ;   PARADA_B=S
+
+A variável CONFIRMA_B=S indica que ao executar a Opção B : Pede para confirmar ?
+S para sim e N para não.
+
+A variável PARADA_B=S indica que ao final da execução da Opção B : Pede para dar uma parada antes de voltar ao Menu ?
+S para sim e N para não.
+Salve o arquivo e ao voltar ao Menu a opção já esta disponível.
+
+[ TELA ]
+
+Execute a opção B para fazer testes
+
+[ TELA ]
+
+Será exigida confirmação conforme variável  CONFIRMA_B=S foi configurada
+
+Tecle S para prosseguir.
+
+[ TELA ]
+
+Caso o script não exista, exibira mensagem de alerta.
+E ao final executa uma “parada” antes de voltar ao menu conforme variável PARADA_B=S foi configurada.
+
+Caso o script exista, veja a tela a seguir :
+
+[ TELA ]
+
+Mostra o final da execução e executa uma “parada” antes de voltar ao menu.
+
+5 – Criando Sub-Menu
+
+Para criar sub-menus , no menu principal ( MENOP001.sh ) digite : cria_menu e siga as instruções.
+
+Crie um sub-menu chamado : MENOP009
+
+Exemplo : Vamos fazer com a Opção A do Menu : MENOP001.sh chame o sub-menu MENOP009.sh
+
+Altere as linhas : 
+
+[ TELA ]
+
+Todo menu é criado em $HOME/shell
+
+
+Onde 
+
+MENU_NAME 	 é o nome do Menu em Questão.
+OPCAO_C		 é o nome da opcao C
+Exec_OPCAO_C 	 é o script shell que vai executar.
+CONFIRMA_C	 Onde S é para pedir confirmação para execução da opcao A
+			  E N não pede confirmação e sai executando.
+PARADA_C		 Onde S pede uma parada após execução da opcao A
+			  E N volta para o menu corrente sem mostrar o final da execução.
+
+E ao entrar no menu MENOP009, edite-o como o comando : edit
+
+6 – Verificando LOG´s do Menu
+
+Todos os Log´são criados em
+
+$HOME/shell/..
+
+MENU_OPERACAO.log
+
+Com o seguinte Lay-Out : ( 9 campos separados por ; )
+
+Exemplo :
+
+CP1 --> Jose da Silva           Nome completo do Operador
+CP2 --> localhost.localdomain   IP de onde foi conectado (origem)
+CP3 --> [ B ] Backup Diario     Display da Opção Executada
+CP4 --> /tmp/teste.sh           Script da Opção Executada
+CP5 --> 02/01/2006              Data de Inicio da execução
+CP6 --> 17:33:19                Hora de Inicio da execução
+CP7 --> 02/01/2006              Data Final da Execução
+CP8 --> 17:33:20                Hora Final da Execução
+CP9 --> MENOP001                Menu de onde foi executado a opção
+
+Este log contem todas as atividades executadas no Menu.
+HACK.log
+
+Com o seguinte Lay-Out : ( 5 campos separados por ; )
+
+Exemplo :
+
+CP1 --> ADM                     Tentativa de Logar-se como ADM
+CP2 --> localhost.localdomain   IP de onde foi conectado (origem)
+CP3 --> pts/3                   Porta TTY de onde foi executado
+CP4 --> 02/01/2006              Data da Tentativa
+CP5 --> 18:04:24                Horario da Tentativa
+
+Este Log contem todas tentativas de logar-se no Menu ou de entrar como Adminstrador, pois cada tentativa de autenticar-se permite apenas 3 tentativas.
+7 – HELP do Menu
+
+No prompt do Menu digite : HELP
+e aparecerão as seguintes opções :
+
+  Palavras Chaves deste Menu :
+
+  help       --> Ajuda de palavras chaves no menu    
+  ajuda      --> Ajuda de palavras chaves no menu   
+  edit       --> Editar Menu em que voce esta no momento
+  cria_menu  --> Criar um Menu Novo ou um Sub-Menu Novo
+  info       --> Editar arquivo de Informacoes do Menu em Questao
+  passwd     --> Alterar Lista de Password do Menu 
+  who        --> Informa Lista de Operadores Ativos no Menu
+  crontab    --> Edita Crontab do root na maquina em que voce esta logado
+  versao     --> Mostra a Versao do Sistema de Menu
+  log        --> Pesquisa no Log de Execucao do Menu
+  logout     --> Desloga o operador atual para logar-se em outro
+  exit       --> Desloga o operador atual para logar-se em outro
+  bye        --> Desloga o operador atual para logar-se em outro
+  sair       --> Desloga o operador atual para logar-se em outro
+  comandos   --> Mostra lista de comandos UNIX & Outros Docs
+8 – Quem está utilizando  o Menu ?
+
+No prompt do Menu digite : who
+
+[ TELA ]
+
+Onde :
+
+Campo 1 --> Nome completo da Conta
+Campo 2 --> Data do Login
+Campo 3 --> Hora do Login
+Campo 4 --> PID da Sessao do Menu
+Campo 5 --> IP (Origem) da conexao do Menu
+9 – Criando uma nova conta no Menu
+
+Digite no prompt do Menu : passwd
+
+[ TELA ]
+
+Digitar um Administrador criado na Instalação do Menu :
+Exemplo : ADM001
+
+[ TELA ]
+
+Escolher a opção : 01
+E seguir os passos pedidos.
+
+Observações : As contas do menu tem o seguinte Lay-Out :
+
+opr999  Operadores
+ADM999  Administrador do Menu
+
+Caso seja digitada qualquer coisa diferente deste padrão, será alertado.
+Este menu foi criado com intenção de melhorar as atividades de um ambiente de produção UNIX, pois padroniza a forma de execução de Jobs e Tarefas para o Operador, evitando falhas na execução destas tarefas, gerando Logs com suas respectivas SysOut’s em uma área definida pelo administrador.
+Evita também a disponibilidade do PROMPT ao operador, eliminando falhas no sistema operacional ou comandos indevidos.
+
+
+Qualquer duvida entre em contato comigo.
+
+Hertz R.Z. Silva
+hertz.raya@gmail.com

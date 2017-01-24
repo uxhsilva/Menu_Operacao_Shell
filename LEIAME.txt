@@ -1,0 +1,2 @@
+Instalação do menu
+Execute o script install_menu.sh como root
